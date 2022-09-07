@@ -11,7 +11,7 @@ def register(request):
             return HttpResponseRedirect('/')
     else:
         fm = UserCreationForm()
-    return render (request, 'myapp/register.html',{'form':fm})
+    return render(request, 'myapp/register.html',{'form':fm})
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
@@ -30,9 +30,9 @@ def user_login(request):
         return HttpResponseRedirect('/calculate')      
     
 
-def fib_series(x):
-    n1 = 0
-    n2 = 1
+def fib_series(x,y):
+    n1 = x
+    n2 = y
     c = 0
     series = []
     while c < x:
@@ -52,9 +52,8 @@ def calculate(request):
             if num1 < 5 or num2 < 5:
                 messages.error(request, "Number must be greater than 5")
             else:
-                n1 = fib_series(int(num1))
-                n2 = fib_series(int(num2))
-                return render(request,'myapp/calculate.html',{'username':username,"num1":n1,"num2":n2})
+                n1 = fib_series(int(num1),int(num2))
+                return render(request,'myapp/calculate.html',{'username':username,"num1":n1})
         return render(request,'myapp/calculate.html',{'username':username})
     else:
         return HttpResponseRedirect('/')
