@@ -30,12 +30,12 @@ def user_login(request):
         return HttpResponseRedirect('/calculate')      
     
 
-def fib_series(x,y):
+def fib_series(x,y,len):
     n1 = x
     n2 = y
     c = 0
     series = []
-    while c < x:
+    while c < len:
         series.append(n1)
         nth = n1 + n2
         n1 = n2
@@ -49,10 +49,11 @@ def calculate(request):
         if request.method == "POST":
             num1 = int(request.POST["num1"])
             num2 = int(request.POST["num2"])
-            if num1 < 5 or num2 < 5:
-                messages.error(request, "Number must be greater than 5")
+            len = int(request.POST["len"])
+            if len < 5 :
+                messages.error(request, "Length must be greater than 5")
             else:
-                n1 = fib_series(int(num1),int(num2))
+                n1 = fib_series(num1,num2,len)
                 return render(request,'myapp/calculate.html',{'username':username,"num1":n1})
         return render(request,'myapp/calculate.html',{'username':username})
     else:
